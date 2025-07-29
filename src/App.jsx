@@ -1,6 +1,6 @@
 import React from "react";
-import PrankForm from "./components/PrankPage.jsx/PrankForm";
-import "./components/PrankPage.jsx/styles/index.css"
+import PrankForm from "./components/PrankPage/PrankForm";
+import "./components/PrankPage/styles/index.css"
 
 function App() {
   return (
