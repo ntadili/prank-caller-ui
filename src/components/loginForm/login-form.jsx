@@ -14,6 +14,7 @@ import { useState } from 'react'
 
 export function LoginForm({
   className,
+  setAuthStep,
   ...props
 }) {
   const [email, setEmail] = useState('')
@@ -65,11 +66,12 @@ export function LoginForm({
               <div className="grid gap-2">
                 <div className="flex items-center">
                   <Label htmlFor="password">Password</Label>
-                  <a
-                    href="/forgot-password"
-                    className="ml-auto inline-block text-sm underline-offset-4 hover:underline">
+                  <p
+                    // href="/forgot-password"
+                    className="ml-auto inline-block text-sm underline-offset-4 hover:underline cursor-pointer"
+                    onClick={() => {setAuthStep("forgotPassword")}}>
                     Forgot your password?
-                  </a>
+                  </p>
                 </div>
                 <Input
                   id="password"
@@ -85,9 +87,9 @@ export function LoginForm({
             </div>
             <div className="mt-4 text-center text-sm">
               Don&apos;t have an account?{' '}
-              <a href="/sign-up" className="underline underline-offset-4">
+              <p className="underline underline-offset-4 cursor-pointer" onClick={() => {setAuthStep("signUp")}}>
                 Sign up
-              </a>
+              </p>
             </div>
           </form>
         </CardContent>

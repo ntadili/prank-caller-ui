@@ -5,6 +5,7 @@ import DrowdownVoices from "./ui/DropdownVoices";
 import SubmitCallButton from "./ui/SubmitCallButton";
 import Credits from "./ui/Credits";
 import { LoginForm } from "../loginForm/login-form";
+import AuthWrapper from "../loginForm/AuthWrapper";
 
 // supabase connect
 import { createClient } from '@supabase/supabase-js';
@@ -71,7 +72,7 @@ function PrankForm() {
       setCredits(data[0].credits)
     }
     fetchCreditCount();
-  })
+  }, [])
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -101,7 +102,8 @@ function PrankForm() {
   return(
   <div className="flex justify-center items-center">
 
-    <LoginForm className={`absolute w-[300px] ${showLogin ? "visible" : "collapse"}`}/>
+    {/* <AuthWrapper className={`absolute w-[300px] ${showLogin ? "visible" : "collapse"}`}/> */}
+    {showLogin && <AuthWrapper className={"absolute w-[300px]"}/>}
 
     <div className="form-container" style={formContainerStyle}>
 

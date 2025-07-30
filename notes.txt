@@ -1,5 +1,14 @@
 1. Tables with Supabase
 2. Policy allow all (true)
 3. Database connection and queries in the backend and frontend
-4. React Routes
-5. Auth with Supabase
+4. React Routes (learn, but not needed now)
+5. Learn TailwindCSS
+6. Auth with Supabase: install the login component.
+
+note from authWrapper.jsx: both && and ? : are valid — but && is just cleaner when you only want to render something or nothing.
+So this is basically the same:
+      {authStep == "login" && <LoginForm setAuthStep={setAuthStep}/>}
+      {authStep == "login" ? <LoginForm setAuthStep={setAuthStep}/> : null}
+
+7. Fix the links between the fotgot password login and sign in forms.
+8. 

@@ -14,6 +14,7 @@ import { useState } from 'react'
 
 export function SignUpForm({
   className,
+  setAuthStep,
   ...props
 }) {
   const [email, setEmail] = useState('')
@@ -111,9 +112,9 @@ export function SignUpForm({
               </div>
               <div className="mt-4 text-center text-sm">
                 Already have an account?{' '}
-                <a href="/login" className="underline underline-offset-4">
+                <p className="underline underline-offset-4 cursor-pointer" onClick={() => {setAuthStep("login")}}>
                   Login
-                </a>
+                </p>
               </div>
             </form>
           </CardContent>
