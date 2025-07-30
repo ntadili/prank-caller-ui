@@ -1,8 +1,8 @@
 import React from 'react'
 
-function Credits({credits}) {
+function Credits({content}) {
   return (
-    <div className='credits'><p>You have {credits} credits left</p></div>
+    <div className='credits'><p>{content}</p></div>
   )
 }
 
