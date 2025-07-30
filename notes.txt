@@ -11,4 +11,5 @@ So this is basically the same:
       {authStep == "login" ? <LoginForm setAuthStep={setAuthStep}/> : null}
 
 7. Fix the links between the fotgot password login and sign in forms.
-8. 
+8. Sessions
+9. Update Policies

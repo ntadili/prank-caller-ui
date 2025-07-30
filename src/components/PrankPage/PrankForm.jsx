@@ -4,11 +4,12 @@ import InfoBox from "./ui/InfoBox";
 import DrowdownVoices from "./ui/DropdownVoices";
 import SubmitCallButton from "./ui/SubmitCallButton";
 import Credits from "./ui/Credits";
-import { LoginForm } from "../loginForm/login-form";
 import AuthWrapper from "../loginForm/AuthWrapper";
 
-// supabase connect
 import { createClient } from '@supabase/supabase-js';
+import LogOutbutton from "./ui/LogOutButton";
+
+// supabase connect
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
@@ -17,11 +18,11 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 const formContainerStyle = {
   maxWidth: "100%",
-  height: "77vh",
-  paddingTop: "200px",
-
-  marginLeft: "400px",
-  borderRadius: "17px"
+  height: "auto",
+  marginTop: "140px",
+  padding: "20px",
+  borderRadius: "17px",
+  border: "solid 2px black"
 }
 
 const formStyle = {
@@ -49,10 +50,43 @@ function PrankForm() {
   // to set the value to true once clicked. Then this will trigger the if statement
   // inside the <LoginForm /> and will update its Tailwind class to visible.
   const [showLogin, setShowLogin] = useState(false);
+
   const handleClick = (e) => {
-    setShowLogin(true);
+    // if (isUserAuthenticated) {
+      setShowLogin(true);
+    // }    This if statement is implemented inline in the component.
   };
 
+
+  // ---------------------------------------------
+  // AUTHENTICATION LOGIC (supabase docs reference link here: https://supabase.com/docs/guides/auth/passwords?queryGroups=flow&flow=implicit)
+  // POSSIBLE CHANGE: Maybe transfer the auth logic to the backend and fetch the isisUserAuthenticated from express instead
+  const [formColor, setFormColor] = useState('bg-grey-200');
+  const [showLogOutButton, setShowLogOutButton] = useState(false)
+  const [isUserAuthenticated, setIsUserAuthenticated] = useState(false)
+
+  useEffect(() => {
+    async function signInWithEmail() {
+      const { data, error } = await supabase.auth.getSession();
+      if (data.session) {
+        setFormColor("bg-green-100");
+        setShowLogOutButton(true);
+        setIsUserAuthenticated(true);
+        console.log(data, `IS THIS USER AUTHENTICATED?: ${isUserAuthenticated}`);
+      } else {
+        setFormColor("bg-red-100");
+        setIsUserAuthenticated(false)
+        console.log(`IS THIS USER AUTHENTICATED?: ${isUserAuthenticated}`);
+      }
+    }
+    signInWithEmail();    
+  }, [])
+
+
+
+
+  // ---------------------------------------------
+  // START OF THE FORM LOGIC
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const [prompt, setPrompt] = useState('');
@@ -74,6 +108,18 @@ function PrankForm() {
     fetchCreditCount();
   }, [])
 
+  // ------------------------------------------
+  // update the credits content for the Credits.jsx 
+  const [creditsInfo, setCreditsInfo] = useState("Get 3 free credits when you login for the first time");
+  useEffect(() =>{
+    if (isUserAuthenticated) {
+      setCreditsInfo(`You have: ${credits} credits left`)
+    }        
+  }, )
+
+
+  // ------------------------------------------
+  // SUBMIT CALL TO THE SERVER
   const handleSubmit = (e) => {
     e.preventDefault();
     const callDetails = {name, number, prompt, voice};
@@ -107,7 +153,7 @@ function PrankForm() {
 
     <div className="form-container" style={formContainerStyle}>
 
-      <form onClick={handleClick} style={formStyle} onSubmit={handleSubmit}>
+      <form className={`${formColor}`} onClick={isUserAuthenticated ? undefined : handleClick} style={formStyle} onSubmit={handleSubmit}>
 
         <InfoBox style={formElements} value={name} id={"name"} name={"name"} placeholder={"Kevin"} content={"Enter a name:"} setValue={setName}/>
 
@@ -119,12 +165,13 @@ function PrankForm() {
 
         <SubmitCallButton onClick={() => setCredits(credits)}/>
 
-        <Credits credits={credits}/>
+        <Credits content={creditsInfo} credits={credits}/>
 
       </form>
 
-    </div>
+      {showLogOutButton && <LogOutbutton />}
 
+    </div>
 
   </div>
   )
