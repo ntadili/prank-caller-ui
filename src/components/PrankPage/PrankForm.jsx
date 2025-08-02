@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from "react";
-import TextBox from "./ui/TextBox";
-import InfoBox from "./ui/InfoBox";
-import DrowdownVoices from "./ui/DropdownVoices";
-import SubmitCallButton from "./ui/SubmitCallButton";
-import Credits from "./ui/Credits";
+import TextBox from "./uiForm/TextBox";
+import InfoBox from "./uiForm/InfoBox";
+import DrowdownVoices from "./uiForm/DropdownVoices";
+import SubmitCallButton from "./uiForm/SubmitCallButton";
+import Credits from "./uiForm/Credits";
 import AuthWrapper from "../loginForm/AuthWrapper";
-
-import { createClient } from '@supabase/supabase-js';
-import LogOutbutton from "./ui/LogOutButton";
-
+import LogOutbutton from "./uiForm/LogOutButton";
+import Welcome from "./uiPage/Welcome";
 // supabase connect
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
-const supabase = createClient(supabaseUrl, supabaseKey);
+import { supabase } from "../lib/supabase/client";
 
 
 
@@ -63,12 +59,14 @@ function PrankForm() {
   // POSSIBLE CHANGE: Maybe transfer the auth logic to the backend and fetch the isisUserAuthenticated from express instead
   const [formColor, setFormColor] = useState('bg-grey-200');
   const [showLogOutButton, setShowLogOutButton] = useState(false)
-  const [isUserAuthenticated, setIsUserAuthenticated] = useState(false)
+  const [isUserAuthenticated, setIsUserAuthenticated] = useState(null)
 
   useEffect(() => {
     async function signInWithEmail() {
       const { data, error } = await supabase.auth.getSession();
       if (data.session) {
+        const userEmail = data.session.user.email;
+        console.log(userEmail)
         setFormColor("bg-green-100");
         setShowLogOutButton(true);
         setIsUserAuthenticated(true);
@@ -93,7 +91,7 @@ function PrankForm() {
   const [voice, setVoice] = useState('v1');
 
   // Set initial credit count at null at first page render, because useState is always loaded before useEffect.
-  const [credits, setCredits] = useState(null);
+  const [credits, setCredits] = useState();
 
   // We now create an async function inside useEffect (because useEffect cant have async directly)
   // Inside we fetch the credit count from the DB and update the useState credits variable with the current count.
@@ -108,14 +106,25 @@ function PrankForm() {
     fetchCreditCount();
   }, [])
 
+
+
+
+
   // ------------------------------------------
-  // update the credits content for the Credits.jsx 
+  // update the welcome text and the credits content for the Credits.jsx 
   const [creditsInfo, setCreditsInfo] = useState("Get 3 free credits when you login for the first time");
+  const [welcomeText, setWelcomeText] = useState()
   useEffect(() =>{
     if (isUserAuthenticated) {
-      setCreditsInfo(`You have: ${credits} credits left`)
-    }        
+      setCreditsInfo(`You have: ${credits} credits left`);
+      setWelcomeText(`Welcome back Nasser`);
+    } else {
+      setWelcomeText(`Log in or create an account`);
+    }       
   }, )
+
+
+
 
 
   // ------------------------------------------
@@ -148,6 +157,8 @@ function PrankForm() {
   return(
   <div className="flex justify-center items-center">
 
+    <Welcome content={welcomeText} />
+
     {/* <AuthWrapper className={`absolute w-[300px] ${showLogin ? "visible" : "collapse"}`}/> */}
     {showLogin && <AuthWrapper className={"absolute w-[300px]"}/>}
 
@@ -169,7 +180,7 @@ function PrankForm() {
 
       </form>
 
-      {showLogOutButton && <LogOutbutton />}
+      {showLogOutButton && <LogOutbutton setIsUserAuthenticated={setIsUserAuthenticated} isUserAuthenticated={isUserAuthenticated} />}
 
     </div>
 

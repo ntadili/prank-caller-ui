@@ -10,6 +10,8 @@ So this is basically the same:
       {authStep == "login" && <LoginForm setAuthStep={setAuthStep}/>}
       {authStep == "login" ? <LoginForm setAuthStep={setAuthStep}/> : null}
 
-7. Fix the links between the fotgot password login and sign in forms.
-8. Sessions
-9. Update Policies
+7. Fix the links between the forgot password login and sign in forms.
+8. FIx the Supabase Client call, and create a client only once inside the lib client folder and update the login components from the older createClient function. 
+This is much more efficient that calling it multiple times in different files, now I can just import the client.js file and work with supabase anywhere.
+9. Create a Sign Out button and add visual changes when logged in or logged out.
+10. Update Policies

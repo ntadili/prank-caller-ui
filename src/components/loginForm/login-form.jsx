@@ -1,5 +1,7 @@
 import { cn } from '@/components/lib/utils'
-import { createClient } from '@/components/lib/supabase/client'
+// import { createClient } from '@/components/lib/supabase/client'
+import { supabase } from "../lib/supabase/client";
+
 import { Button } from '@/components/loginForm/ui/button'
 import {
   Card,
@@ -12,6 +14,7 @@ import { Input } from '@/components/loginForm/ui/input'
 import { Label } from '@/components/loginForm/ui/label'
 import { useState } from 'react'
 
+
 export function LoginForm({
   className,
   setAuthStep,
@@ -21,7 +24,7 @@ export function LoginForm({
   const [password, setPassword] = useState('')
   const [error, setError] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
-  const supabase = createClient()
+  // const supabase = createClient() not needed anymore as supabase const is directly imported
 
   const handleLogin = async (e) => {
     e.preventDefault()

@@ -5,13 +5,14 @@ const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 
-function LogOutbutton() {
+function LogOutbutton({ setIsUserAuthenticated, IsUserAuthenticated }) {
 
   // Docs used for Sign Out: https://supabase.com/docs/guides/auth/signout
   const logOut = async () => {
     await supabase.auth.signOut({ scope: 'local' });
     window.location.reload()
-    console.log(`User logged off: ${supabase.auth.signOut}`);
+    setIsUserAuthenticated(false);
+    console.log(`User logged off: ${supabase.auth.signOut}`, IsUserAuthenticated);
   }
   
   return (

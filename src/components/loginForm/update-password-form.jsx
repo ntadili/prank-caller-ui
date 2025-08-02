@@ -1,5 +1,7 @@
 import { cn } from '@/components/lib/utils'
-import { createClient } from '@/components/lib/supabase/client'
+// import { createClient } from '@/components/lib/supabase/client'
+import { supabase } from "../lib/supabase/client";
+
 import { Button } from '@/components/loginForm/ui/button'
 import {
   Card,
@@ -21,7 +23,7 @@ export function UpdatePasswordForm({
   const [isLoading, setIsLoading] = useState(false)
 
   const handleForgotPassword = async (e) => {
-    const supabase = createClient()
+    // const supabase = createClient() not needed anymore as supabase const is directly imported
     e.preventDefault()
     setIsLoading(true)
     setError(null)
