@@ -13,18 +13,32 @@ The project is currently in development and serves as a playground to practice m
 
 ```plaintext
 client/
+ ├─ dist/                  # Production build output
+ ├─ node_modules/          # Project dependencies
+ ├─ public/                # Static assets (served as-is)
  ├─ src/
- │   ├─ components/   # UI components
- │   ├─ pages/        # Page-level views
- │   ├─ styles/       # Tailwind CSS
- │   ├─ App.jsx
- │   └─ main.jsx
- ├─ tailwind.config.js
- ├─ vite.config.js
- └─ package.json
-```
-
-## 📝 Status
-
-Currently building the **authentication system** with Supabase.
-
+ │   ├─ assets/            # Images, icons, and other static assets
+ │   ├─ components/        # Reusable UI components
+ │   ├─ constants/         # App-wide constants
+ │   ├─ hooks/             # Custom React hooks
+ │   ├─ pages/             # Page-level views
+ │   ├─ styles/            # Global styles (Tailwind entry)
+ │   │   └─ index.css
+ │   ├─ App.jsx            # Root React component
+ │   └─ main.jsx           # App entry point
+ ├─ .env                   # Environment variables
+ ├─ .gitignore             # Git ignore rules
+ ├─ components.json        # UI config (shadcn/ui setup if used)
+ ├─ eslint.config.js       # ESLint configuration
+ ├─ index.html             # HTML entry file
+ ├─ jsconfig.json          # Path aliases + IntelliSense
+ ├─ notes.txt              # Dev notes
+ ├─ package.json           # Project metadata and dependencies
+ ├─ package-lock.json      # Lockfile for dependencies
+ ├─ postcss.config.js      # PostCSS configuration
+ ├─ tailwind.config.js     # Tailwind configuration
+ ├─ vite.config.js         # Vite configuration
+ └─ README.md              # Project documentation
+ 
+📝 Status
+Currently building the authentication system with Supabase.
