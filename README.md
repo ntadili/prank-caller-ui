@@ -39,6 +39,6 @@ client/
  ├─ tailwind.config.js     # Tailwind configuration
  ├─ vite.config.js         # Vite configuration
  └─ README.md              # Project documentation
- 
+
 📝 Status
-Currently building the authentication system with Supabase.
+Currently building the authentication system with Supabase
