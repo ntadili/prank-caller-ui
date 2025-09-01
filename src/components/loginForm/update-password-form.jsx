@@ -1,4 +1,4 @@
-import { cn } from '@/components/lib/utils'
+import { cn } from '@/components/lib/utils/utils'
 // import { createClient } from '@/components/lib/supabase/client'
 import { supabase } from "../lib/supabase/client";
 

@@ -1,0 +1,1 @@
+export { default as PrankModal } from './PrankModal';
