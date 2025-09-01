@@ -9,9 +9,8 @@ The project is currently in development and serves as a playground to practice m
 - **Supabase** (authentication & database)  
 - **Node.js + Express** (backend integration)  
 
-📂 Project Structure
-plaintext
-Copy code
+## 📂 Project Structure
+```plaintext
 client/
  ├─ dist/                  # Production build output
  ├─ node_modules/          # Project dependencies
