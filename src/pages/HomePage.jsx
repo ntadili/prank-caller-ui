@@ -5,12 +5,20 @@ import { PrankForm } from '../components/prank/PrankForm';
 import { PrankModal } from '../components/prank/PrankModal';
 import { usePrankForm } from '../hooks';
 import { APP_CONFIG } from '../constants';
+import AuthWrapper from '@/components/loginForm/AuthWrapper';
 
 function HomePage() {
   const [credits] = useState(APP_CONFIG.defaultCredits);
   const [showPrankModal, setShowPrankModal] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   
+  // Set functionality for showing Login Form
+  const [showLogin, setShowLogin] = useState(false)
+  const handleClick = (e) => {
+    e.preventDefault()
+    setShowLogin(true);
+    console.log("hi there")
+  }
 
   const {
     formData,
@@ -33,8 +41,7 @@ function HomePage() {
   };
 
   const handleAuthToggle = () => {
-    // TODO: Implement proper authentication toggle
-    console.log('Auth toggle clicked');
+    setIsLoggedIn(!isLoggedIn);
   };
 
   return (
@@ -44,6 +51,7 @@ function HomePage() {
       <div className="relative z-10">
         <Header credits={credits} isLoggedIn={isLoggedIn} onAuthToggle={handleAuthToggle} />
         <HeroSection isLoggedIn={isLoggedIn} />
+        {showLogin && <AuthWrapper />}
         <PrankForm
           formData={formData}
           onFieldChange={updateFormField}
@@ -52,7 +60,7 @@ function HomePage() {
           playingVoice={playingVoice}
           onVoicePreview={previewVoice}
           isLaunching={isLaunching}
-          handleSubmit={handleLaunchPrank}
+          handleSubmit={handleClick}
         />
         <FeaturesSection />
         <Footer />
