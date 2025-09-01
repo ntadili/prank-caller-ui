@@ -51,7 +51,7 @@ function HomePage() {
       <div className="relative z-10">
         <Header credits={credits} isLoggedIn={isLoggedIn} onAuthToggle={handleAuthToggle} />
         <HeroSection isLoggedIn={isLoggedIn} />
-        {showLogin && <AuthWrapper />}
+        {showLogin && <AuthWrapper onClose={() => setShowLogin(false)} />}
         <PrankForm
           formData={formData}
           onFieldChange={updateFormField}
