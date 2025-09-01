@@ -10,7 +10,7 @@ import AuthWrapper from '@/components/loginForm/AuthWrapper';
 function HomePage() {
   const [credits] = useState(APP_CONFIG.defaultCredits);
   const [showPrankModal, setShowPrankModal] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   
   // Set functionality for showing Login Form
   const [showLogin, setShowLogin] = useState(false)

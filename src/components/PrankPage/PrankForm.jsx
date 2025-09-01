@@ -57,9 +57,9 @@ function PrankForm() {
   // ---------------------------------------------
   // AUTHENTICATION LOGIC (supabase docs reference link here: https://supabase.com/docs/guides/auth/passwords?queryGroups=flow&flow=implicit)
   // POSSIBLE CHANGE: Maybe transfer the auth logic to the backend and fetch the isisUserAuthenticated from express instead
-  const [formColor, setFormColor] = useState('bg-grey-200');
-  const [showLogOutButton, setShowLogOutButton] = useState(false)
-  const [isUserAuthenticated, setIsUserAuthenticated] = useState(null)
+  const [formColor, setFormColor] = useState('bg-green-100');
+  const [showLogOutButton, setShowLogOutButton] = useState(true)
+  const [isUserAuthenticated, setIsUserAuthenticated] = useState(true)
 
   useEffect(() => {
     async function signInWithEmail() {
