@@ -44,7 +44,7 @@ function PrankForm() {
   // This is the logic for the pop up Login, we set false by default.
   // handleClick will be used for the onClick inside the <form /> tag
   // to set the value to true once clicked. Then this will trigger the if statement
-  // inside the <LoginForm /> and will update its Tailwind class to visible.
+  // inside the <LoginForm /> and will return it on the skeleton.
   const [showLogin, setShowLogin] = useState(false);
 
   const handleClick = (e) => {
