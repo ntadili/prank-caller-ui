@@ -38,8 +38,7 @@ export function LoginForm({
       })
       if (error) throw error
       // Update this route to redirect to an authenticated route. The user already has an active session.
-      // location.href = '/protected' // COMMENTED: Redirect disabled for development
-      window.location.reload(); // ADDED: Reload page to update auth state
+      location.href = '/protected'
     } catch (error) {
       setError(error instanceof Error ? error.message : 'An error occurred')
     } finally {
