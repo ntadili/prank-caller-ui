@@ -20,6 +20,10 @@ function HomePage() {
     console.log("hi there")
   }
 
+  const handleCloseLogin = () => {
+    setShowLogin(false);
+  };
+
   const {
     formData,
     playingVoice,
@@ -51,7 +55,6 @@ function HomePage() {
       <div className="relative z-10">
         <Header credits={credits} isLoggedIn={isLoggedIn} onAuthToggle={handleAuthToggle} />
         <HeroSection isLoggedIn={isLoggedIn} />
-        {showLogin && <AuthWrapper />}
         <PrankForm
           formData={formData}
           onFieldChange={updateFormField}
@@ -65,6 +68,8 @@ function HomePage() {
         <FeaturesSection />
         <Footer />
       </div>
+
+      {showLogin && <AuthWrapper onClose={handleCloseLogin} />}
       
       <PrankModal
         isOpen={showPrankModal}

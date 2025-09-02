@@ -18,6 +18,7 @@ import { useState } from 'react'
 export function LoginForm({
   className,
   setAuthStep,
+  onClose,
   ...props
 }) {
   const [email, setEmail] = useState('')
@@ -38,7 +39,8 @@ export function LoginForm({
       })
       if (error) throw error
       // Update this route to redirect to an authenticated route. The user already has an active session.
-      location.href = '/protected'
+      // location.href = '/protected'
+      onClose?.();
     } catch (error) {
       setError(error instanceof Error ? error.message : 'An error occurred')
     } finally {
@@ -48,14 +50,17 @@ export function LoginForm({
 
   return (
     <div className={cn('flex flex-col gap-6', className)} {...props}>
-      <Card className={"border-2 "}>
+       <Card className="shadow-2xl border-2 border-white/30 relative">
+        <button onClick={onClose} className="absolute top-4 right-4 w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors duration-200">
+          <span className="text-gray-600 text-lg">×</span>
+        </button>
         <CardHeader>
           <CardTitle className="text-2xl">Login</CardTitle>
-          <CardDescription>Enter your email below to login to your account</CardDescription>
+          <CardDescription>Welcome! Enter your credentials to continue</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleLogin}>
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-5">
               <div className="grid gap-2">
                 <Label htmlFor="email">Email</Label>
                 <Input
@@ -71,7 +76,7 @@ export function LoginForm({
                   <Label htmlFor="password">Password</Label>
                   <p
                     // href="/forgot-password"
-                    className="ml-auto inline-block text-sm underline-offset-4 hover:underline cursor-pointer"
+                    className="ml-auto inline-block text-sm underline-offset-4 hover:underline cursor-pointer text-purple-600 hover:text-purple-700 font-medium"
                     onClick={() => {setAuthStep("forgotPassword")}}>
                     Forgot your password?
                   </p>
@@ -83,16 +88,19 @@ export function LoginForm({
                   value={password}
                   onChange={(e) => setPassword(e.target.value)} />
               </div>
-              {error && <p className="text-sm text-red-500">{error}</p>}
-              <Button type="submit" className="w-full" disabled={isLoading}>
+              {error && (
+                <div className="bg-red-50 border-2 border-red-200 rounded-2xl p-4">
+                  <p className="text-sm text-red-600 font-medium">{error}</p>
+                </div>
+              )}              <Button type="submit" className="w-full" disabled={isLoading}>
                 {isLoading ? 'Logging in...' : 'Login'}
               </Button>
             </div>
-            <div className="mt-4 text-center text-sm">
+            <div className="mt-4 text-center text-base">
               Don&apos;t have an account?{' '}
-              <p className="underline underline-offset-4 cursor-pointer" onClick={() => {setAuthStep("signUp")}}>
+              <span className="underline underline-offset-4 cursor-pointer text-purple-600 hover:text-purple-700 font-semibold" onClick={() => {setAuthStep("signUp")}}>
                 Sign up
-              </p>
+              </span>
             </div>
           </form>
         </CardContent>

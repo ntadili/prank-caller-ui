@@ -18,6 +18,7 @@ import { useState } from 'react'
 export function ForgotPasswordForm({
   className,
   setAuthStep,
+  onClose,
   ...props
 }) {
   const [email, setEmail] = useState('')
@@ -48,7 +49,10 @@ export function ForgotPasswordForm({
   return (
     <div className={cn('flex flex-col gap-6', className)} {...props}>
       {success ? (
-        <Card>
+        <Card className="shadow-2xl border-2 border-white/30 relative">
+        <button onClick={onClose} className="absolute top-4 right-4 w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors duration-200">
+          <span className="text-gray-600 text-lg">×</span>
+        </button>
           <CardHeader>
             <CardTitle className="text-2xl">Check Your Email</CardTitle>
             <CardDescription>Password reset instructions sent</CardDescription>
@@ -65,12 +69,12 @@ export function ForgotPasswordForm({
           <CardHeader>
             <CardTitle className="text-2xl">Reset Your Password</CardTitle>
             <CardDescription>
-              Type in your email and we&apos;ll send you a link to reset your password
+              No worries! Enter your email and we'll send you a reset link
             </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleForgotPassword}>
-              <div className="flex flex-col gap-6">
+              <div className="flex flex-col gap-5">
                 <div className="grid gap-2">
                   <Label htmlFor="email">Email</Label>
                   <Input
@@ -81,16 +85,20 @@ export function ForgotPasswordForm({
                     value={email}
                     onChange={(e) => setEmail(e.target.value)} />
                 </div>
-                {error && <p className="text-sm text-red-500">{error}</p>}
+                {error && (
+                  <div className="bg-red-50 border-2 border-red-200 rounded-2xl p-4">
+                    <p className="text-sm text-red-600 font-medium">{error}</p>
+                  </div>
+                )}
                 <Button type="submit" className="w-full" disabled={isLoading}>
                   {isLoading ? 'Sending...' : 'Send reset email'}
                 </Button>
               </div>
-              <div className="mt-4 text-center text-sm">
+              <div className="mt-6 text-center text-base">
                 Already have an account?{' '}
-                <p className="underline underline-offset-4 cursor-pointer" onClick={() => {setAuthStep("login")}}>
+                <span className="underline underline-offset-4 cursor-pointer text-purple-600 hover:text-purple-700 font-semibold" onClick={() => {setAuthStep("login")}}>
                   Login
-                </p>
+                </span>
               </div>
             </form>
           </CardContent>
