@@ -97,8 +97,8 @@ export const PrankForm = ({
           <div className="mt-8 md:mt-10 text-center">
             <button
               type='submit'
-              // onClick={onLaunchPrank}
-              onClick={handleSubmit}
+              onClick={onLaunchPrank}
+              // onClick={handleSubmit}
               disabled={!isFormValid}
               className={`group relative w-full md:w-auto inline-flex items-center justify-center font-semibold rounded-2xl transition-all duration-300 px-6 py-4 md:px-12 md:py-4 text-lg md:text-xl text-white shadow-lg ${
                 isLaunching
