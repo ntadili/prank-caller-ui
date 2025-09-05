@@ -6,7 +6,7 @@ The project is currently in development and serves as a playground to practice m
 ---
 
 ## 🎥 Demo
-👉 [prank-caller-ui.vercel.app](prank-caller-ui.vercel.app)
+👉 [prankie.app](prankie.app)
 <p align="center">
   <img src="/public/baseknowledge2.gif" width="600"/>
 </p>
