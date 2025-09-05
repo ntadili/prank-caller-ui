@@ -6,7 +6,7 @@ The project is currently in development and serves as a playground to practice m
 ---
 
 ## 🎥 Demo
-👉 [prankie.app](prankie.app)
+👉 [https://www.prankie.app/](https://www.prankie.app/)
 <p align="center">
   <img src="/public/baseknowledge2.gif" width="600"/>
 </p>
