@@ -2,7 +2,7 @@ import React from 'react';
 import { Phone, CreditCard, Sparkles, Menu, X } from 'lucide-react';
 import { Button } from '../../ui';
 
-export const Header = ({ credits, isLoggedIn, onAuthToggle }) => {
+export const Header = ({ credits, isUserAuthed, logOut, showLoginForm }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
 
   return (
@@ -41,7 +41,7 @@ export const Header = ({ credits, isLoggedIn, onAuthToggle }) => {
           </div>
           
           <div className="flex items-center space-x-4">
-            {isLoggedIn ? (
+            {isUserAuthed ? (
               <div className="flex items-center space-x-2 bg-white/20 backdrop-blur-sm rounded-full px-4 py-2 border border-white/30">
                 <CreditCard className="w-5 h-5 text-cyan-300" />
                 <span className="text-white font-semibold">{credits} Credits</span>
@@ -52,8 +52,8 @@ export const Header = ({ credits, isLoggedIn, onAuthToggle }) => {
                 <span className="text-white font-semibold">3 Free Credits on Sign Up</span>
               </div>
             )}
-            <Button variant="secondary" size="md" onClick={onAuthToggle}>
-              {isLoggedIn ? 'Sign Out' : 'Login'}
+            <Button variant="secondary" size="md" onClick={isUserAuthed ? logOut : showLoginForm}>
+              {isUserAuthed ? 'Sign Out' : 'Login'}
             </Button>
           </div>
         </div>
@@ -62,7 +62,7 @@ export const Header = ({ credits, isLoggedIn, onAuthToggle }) => {
         {isMobileMenuOpen && (
           <div className="md:hidden absolute top-16 right-4 bg-white/95 backdrop-blur-sm rounded-2xl border border-white/50 shadow-2xl p-4 min-w-[200px] z-50 mt-2">
             <div className="space-y-4">
-              {isLoggedIn ? (
+              {isUserAuthed ? (
                 <div className="flex items-center space-x-2 bg-gray-100 rounded-full px-4 py-2">
                   <CreditCard className="w-5 h-5 text-purple-600" />
                   <span className="text-gray-800 font-semibold">{credits} Credits</span>
@@ -82,7 +82,7 @@ export const Header = ({ credits, isLoggedIn, onAuthToggle }) => {
                   setIsMobileMenuOpen(false);
                 }}
               >
-                {isLoggedIn ? 'Sign Out' : 'Login'}
+                {isUserAuthed ? 'Sign Out' : 'Login'}
               </Button>
             </div>
           </div>

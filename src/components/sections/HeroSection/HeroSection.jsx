@@ -1,8 +1,8 @@
 import React from 'react';
 import { Phone, Zap, Shield, Users, Star } from 'lucide-react';
 
-export const HeroSection = ({ isLoggedIn }) => {
-  if (isLoggedIn) {
+export const HeroSection = ({isUserAuthed }) => {
+  if (isUserAuthed) {
     return (
       <section className="px-6 py-8 md:py-12">
         <div className="max-w-6xl mx-auto text-center">

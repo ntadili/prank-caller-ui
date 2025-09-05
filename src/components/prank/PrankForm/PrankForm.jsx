@@ -14,7 +14,7 @@ export const PrankForm = ({
   onVoicePreview,
   isLaunching,
   handleSubmit,
-  isUserAuthenticated
+  isUserAuthed
 }) => {
   const isFormValid = formData.targetName.trim() && 
                      formData.phoneNumber.trim() && 
@@ -98,7 +98,7 @@ export const PrankForm = ({
           <div className="mt-8 md:mt-10 text-center">
             <button
               type='submit'
-              onClick={isUserAuthenticated ? onLaunchPrank : handleSubmit}
+              onClick={isUserAuthed ? onLaunchPrank : handleSubmit}
               // onClick={onLaunchPrank}
               // onClick={handleSubmit}
               disabled={!isFormValid}
