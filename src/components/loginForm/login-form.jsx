@@ -40,7 +40,7 @@ export function LoginForm({
       if (error) throw error
       // Update this route to redirect to an authenticated route. The user already has an active session.
       // Edit: this is an authenticated route(just need to add some logic), but the token needs to be stored privately by supabase, and the numbers and letters I see in other links when logged in is just the id of some object, my id or a game id.
-      location.href = '/app'
+      window.location.href = '/app'
       onClose?.();
     } catch (error) {
       setError(error instanceof Error ? error.message : 'An error occurred')

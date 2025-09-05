@@ -67,6 +67,8 @@ export const PrankForm = ({
                         : 'bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600'
                     }`}
                     onClick={() => {
+                      // AI Improve functionality can be implemented here
+                      console.log('AI Improve clicked for message:', formData.message);
                     }}
                   >
                     <Sparkles className={`w-3 h-3 ${formData.message.length > 0 ? 'animate-wiggle' : 'animate-pulse'}`} />

@@ -12,7 +12,18 @@ import { Button } from '@/components/ui';
 function HomePage() {
   const [credits] = useState(APP_CONFIG.defaultCredits);
   const [showPrankModal, setShowPrankModal] = useState(false);
-
+  const [hasRestoredForm, setHasRestoredForm] = useState(false);
+  const {
+    formData,
+    playingVoice,
+    isLaunching,
+    updateFormField,
+    updateCountry,
+    previewVoice,
+    launchPrank,
+    restoreFormData,
+    clearFormData,
+  } = usePrankForm();
 
 
   // -----------------------------------------------------------
@@ -58,8 +69,18 @@ function HomePage() {
   useEffect(() => {
     if (isUserAuthed !== null) {
       console.log("Authed (from state):", isUserAuthed);
+
+      // If user is authenticated and we haven't restored form data yet, try to restore it
+      if (isUserAuthed && !hasRestoredForm) {
+        const restored = restoreFormData();
+        setHasRestoredForm(true);
+        
+        if (restored) {
+          console.log('Form data restored after login');
+        }
+      }
     }
-  }, [isUserAuthed]);
+  }, [isUserAuthed, hasRestoredForm, restoreFormData]);
   // -----------------------------------------------------------
 
 
@@ -68,6 +89,9 @@ function HomePage() {
   // TOGGLE AUTH LOGIC
   // Docs used for Sign Out: https://supabase.com/docs/guides/auth/signout
   const logOut = async () => {
+    // Clear form data on logout
+    clearFormData();
+
     await supabase.auth.signOut({ scope: 'local' });
     window.location.reload()
     setIsUserAuthenticated(false);
@@ -82,16 +106,6 @@ function HomePage() {
   const handleCloseLogin = () => {
     setShowLogin(false);
   };
-
-  const {
-    formData,
-    playingVoice,
-    isLaunching,
-    updateFormField,
-    updateCountry,
-    previewVoice,
-    launchPrank,
-  } = usePrankForm();
 
   const handleLaunchPrank = () => {
     launchPrank(() => {

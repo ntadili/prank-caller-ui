@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { validatePhoneNumber } from '../components/lib/utils/validation';
+import { useFormPersistence } from './useFormPersistence';
 
 const INITIAL_FORM_DATA = {
   targetName: '',
@@ -20,12 +21,22 @@ export const usePrankForm = () => {
   const [playingVoice, setPlayingVoice] = useState(null);
   const [isLaunching, setIsLaunching] = useState(false);
 
+  const { saveFormData, loadFormData, clearFormData } = useFormPersistence();
+
   const updateFormField = (field, value) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    const newFormData = { ...formData, [field]: value };
+    setFormData(newFormData);
+    
+    // Save to localStorage whenever form data changes
+    saveFormData(newFormData);
   };
 
   const updateCountry = (countryCode) => {
-    setFormData(prev => ({ ...prev, countryCode }));
+    const newFormData = { ...formData, countryCode };
+    setFormData(newFormData);
+    
+    // Save to localStorage whenever form data changes
+    saveFormData(newFormData);
   };
   
   const previewVoice = (voiceId) => {
@@ -60,8 +71,24 @@ export const usePrankForm = () => {
     // Simulate prank call process
     setTimeout(() => {
       setIsLaunching(false);
+
+      // Clear form data after successful launch
+      clearFormData();
+
       onComplete?.();
     }, 3000);
+  };
+
+
+  // Function to restore form data from localStorage
+  const restoreFormData = () => {
+    const savedData = loadFormData();
+    if (savedData) {
+      setFormData(savedData);
+      console.log('Form data restored:', savedData);
+      return true;
+    }
+    return false;
   };
 
   return {
@@ -72,5 +99,7 @@ export const usePrankForm = () => {
     updateCountry,
     previewVoice,
     launchPrank,
+    restoreFormData,
+    clearFormData,
   };
 };
